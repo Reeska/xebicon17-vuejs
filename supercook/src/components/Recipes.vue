@@ -1,37 +1,34 @@
 <template>
   <div class="hello">
-    Liste des recettes
+    <h2>Liste des recettes</h2>
+
+    <recipe :data="recipe" v-for="recipe in recipes" :key="recipe.uid"></recipe>
   </div>
 </template>
 
 <script>
-export default {
-  name: 'hello',
-  data () {
-    return {
-      msg: 'Welcome to Your Vue.js App'
+  import Recipe from './Recipe.vue'
+  import recipesService from '../services/recipes-services'
+
+  export default {
+    name: 'recipes',
+    data () {
+      return {
+        recipes: []
+      }
+    },
+    created () {
+      recipesService.getRecipes()
+        .then(recipes => {
+          this.recipes = recipes
+        })
+    },
+    components: {
+      Recipe
     }
   }
-}
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h1, h2 {
-  font-weight: normal;
-}
 
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-
-a {
-  color: #42b983;
-}
 </style>

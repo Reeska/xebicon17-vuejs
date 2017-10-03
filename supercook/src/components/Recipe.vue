@@ -17,7 +17,6 @@
 </template>
 
 <script>
-  import StartRating from './StartRating.vue'
   import Start from './Start.vue'
   import recipesService from '../services/recipes-services'
 
@@ -33,9 +32,7 @@
         }
       }
     },
-    components: {
-      Start,
-      StartRating},
+    components: {Start},
     name: 'recipe',
     props: ['data']
   }

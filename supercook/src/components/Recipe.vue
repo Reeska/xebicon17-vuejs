@@ -8,13 +8,34 @@
         <img :src="data.img_small"/>
         <div>Durée : {{ data.cuisson }}</div>
       </div>
-      <p class="description">{{ data.histoire }}</p>
+      <div class="story">
+        <p class="description">{{ data.histoire }}</p>
+        <start class="favorite" @onChange="onFavorite" :favorite="data.favorite" ></start>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+  import StartRating from './StartRating.vue'
+  import Start from './Start.vue'
+  import recipesService from '../services/recipes-services'
+
   export default {
+    methods: {
+      onFavorite (favorite) {
+        console.log('isFavorite:', favorite)
+        this.data.favorite = favorite
+        if (favorite) {
+          recipesService.addFavorite(this.data)
+        } else {
+          recipesService.removeFavorite(this.data)
+        }
+      }
+    },
+    components: {
+      Start,
+      StartRating},
     name: 'recipe',
     props: ['data']
   }
@@ -36,9 +57,19 @@
         text-align: center;
       }
 
-      .description {
+      .story {
         flex: 1;
-        margin: 0;
+        display: flex;
+        flex-direction: column;
+
+        .description {
+          flex: 1;
+          margin: 0;
+        }
+
+        .favorite {
+          align-self: flex-end;
+        }
       }
     }
   }

@@ -1,13 +1,37 @@
+let favorites = JSON.parse(window.localStorage.getItem('favorites')) || []
+
+function applyFavorites (recipes) {
+  favorites.forEach(f => recipes.filter(r => r.uid === f.uid).forEach(r => { r.favorite = true }))
+  return recipes
+}
+
+function findFavorites () {
+  return favorites
+}
+
+function addFavorite (recipe) {
+  favorites.push(recipe)
+  window.localStorage.setItem('favorites', JSON.stringify(favorites))
+}
+
+function removeFavorite (recipe) {
+  const newFavorites = favorites.filter(f => f.uid !== recipe.uid)
+  window.localStorage.setItem('favorites', JSON.stringify(newFavorites))
+  favorites = JSON.parse(window.localStorage.getItem('favorites'))
+}
+
 function getRecipes () {
   return window
     .fetch('https://bhvb4ch330.execute-api.eu-west-1.amazonaws.com/dev/recipes')
     .then(response => response.json())
+    .then(applyFavorites)
 }
 
 function getRecipe (uid) {
   return window
-    .fetch('https://bhvb4ch330.execute-api.eu-west-1.amazonaws.com/dev/recipes/' + uid)
+    .fetch(`https://bhvb4ch330.execute-api.eu-west-1.amazonaws.com/dev/recipes/${uid}`)
     .then(response => response.json())
+    .then(applyFavorites)
 }
 
 // const recipes = [{
@@ -40,5 +64,8 @@ function getRecipe (uid) {
 
 export default {
   getRecipes,
-  getRecipe
+  getRecipe,
+  addFavorite,
+  removeFavorite,
+  findFavorites
 }

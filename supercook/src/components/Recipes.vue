@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-    <h2>Liste des recettes</h2>
+    <h2>Liste des recettes  </h2>
 
     <recipe :data="recipe" v-for="recipe in recipes" :key="recipe.uid"></recipe>
   </div>

@@ -11,6 +11,9 @@
           <li>
             <router-link to="/favorites">Mes Favoris</router-link>
           </li>
+          <li>
+            <router-link to="/add-recipe">Ajout d'une recette</router-link>
+          </li>
         </ul>
       </div>
     </header>

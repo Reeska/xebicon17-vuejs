@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Recipes from '../components/Recipes.vue'
 import RecipeFull from '../components/RecipeFull.vue'
 import Favorites from '../components/Favorites.vue'
+import AddRecipe from '../components/AddRecipe.vue'
 
 Vue.use(Router)
 
@@ -12,6 +13,11 @@ export default new Router({
       path: '/recipes',
       name: 'recipes',
       component: Recipes
+    },
+    {
+      path: '/add-recipe',
+      name: 'add-recipe',
+      component: AddRecipe
     },
     {
       path: '/recipes/:uid',

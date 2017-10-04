@@ -85,10 +85,16 @@
         width: 90%;
         margin: auto;
 
-        h2 {
+        .title {
           box-shadow: 0 8px 13px 0 #aeadad;
           padding: 0 11px;
           border-radius: 0 0 8px 8px;
+          display: flex;
+          justify-content:space-between;
+          align-items: center;
+          height: 30px;
+          margin-bottom: 10px;
+          margin-top: 10px;
         }
       }
     }

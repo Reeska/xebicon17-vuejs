@@ -1,8 +1,11 @@
 <template>
-  <div class="hello">
-    <h2>Mes Favoris</h2>
+  <div>
+    <div class="title">
+      <h2>Mes Favoris</h2>
+      <span>favorites: {{favorites.length}}</span>
+    </div>
 
-    <recipe :data="recipe" v-for="recipe in favorites" :key="recipe.uid"></recipe>
+    <recipe :data="recipe" v-for="recipe in favorites" :key="recipe.uid" @onFavorite="loadFavorites()"></recipe>
   </div>
 </template>
 
@@ -19,7 +22,12 @@
       }
     },
     created () {
-      this.favorites = recipesService.findFavorites()
+      this.loadFavorites()
+    },
+    methods: {
+      loadFavorites () {
+        this.favorites = recipesService.findFavorites()
+      }
     },
     components: {Recipe}
   }

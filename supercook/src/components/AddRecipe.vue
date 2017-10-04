@@ -1,6 +1,8 @@
 <template>
   <div>
-    <h2>Ajout d'une recette</h2>
+    <div class="title">
+      <h2>Ajout d'une recette</h2>
+    </div>
 
     <form>
       <fieldset>

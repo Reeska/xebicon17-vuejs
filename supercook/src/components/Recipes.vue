@@ -1,8 +1,10 @@
 <template>
-  <div class="hello">
-    <h2>Liste des recettes  </h2>
-
-    <recipe :data="recipe" v-for="recipe in recipes" :key="recipe.uid"></recipe>
+  <div>
+   <div class="title">
+     <h2>Liste des recettes  </h2>
+     <span>favorites: {{countFavorites}}</span>
+   </div>
+    <recipe :data="recipe" v-for="recipe in recipes" :key="recipe.uid" ></recipe>
   </div>
 </template>
 
@@ -22,6 +24,11 @@
         .then(recipes => {
           this.recipes = recipes
         })
+    },
+    computed: {
+      countFavorites () {
+        return this.recipes.filter(r => r.favorite).length
+      }
     },
     components: {
       Recipe

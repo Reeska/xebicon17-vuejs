@@ -23,13 +23,13 @@
   export default {
     methods: {
       onFavorite (favorite) {
-        console.log('isFavorite:', favorite)
         this.data.favorite = favorite
         if (favorite) {
           recipesService.addFavorite(this.data)
         } else {
           recipesService.removeFavorite(this.data)
         }
+        this.$emit('onFavorite')
       }
     },
     components: {Start},

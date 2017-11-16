@@ -6,7 +6,7 @@
     <div class="details">
       <div class="info">
         <img :src="data.img_small"/>
-        <div>Durée : {{ data.cuisson }}</div>
+        <div>Durée : {{ data.cuisson }} minutes</div>
       </div>
       <div class="story">
         <p class="description">{{ data.histoire }}</p>

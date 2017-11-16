@@ -6,6 +6,14 @@
 
     <form>
       <fieldset>
+        Type :
+        <select v-model="recipe.type">
+          <option selected="selected" value="">-</option>
+          <option v-for="type in types" :value="type">{{ type }}</option>
+        </select>
+      </fieldset>
+
+      <fieldset>
         Nom : <input type="text" v-model="recipe.nom"/>
       </fieldset>
 
@@ -18,14 +26,14 @@
       </fieldset>
 
       <fieldset>
-        Description : <textarea></textarea>
+        Description : <textarea v-model="recipe.histoire"></textarea>
       </fieldset>
 
       <div>
         <h3>Liste des ingrédients</h3>
         <ul>
           <li v-for="ingredient in recipe.ingredients">
-            <input v-model="ingredient.name" /> ({{ ingredient }})
+            <input v-model="ingredient.name" />
           </li>
           <li @click="addIngredient()">Ajouter un ingrédient</li>
         </ul>
@@ -41,11 +49,20 @@
 </template>
 
 <script>
+  import recipesServices from '../services/recipes-services'
+
   export default {
     name: 'addRecipe',
     data () {
       return {
+        types: [
+          'Dessert',
+          'Plat',
+          'Entrée',
+          'Boisson'
+        ],
         recipe: {
+          type: '',
           nom: '',
           cuisson: 0,
           img_small: '',
@@ -60,7 +77,7 @@
         })
       },
       save () {
-        console.log('save', this.recipe)
+        recipesServices.addRecipe(this.recipe);
       }
     }
   }

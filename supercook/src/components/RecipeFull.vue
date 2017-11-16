@@ -28,7 +28,7 @@
     created () {
       recipesService.getRecipe(this.uid)
         .then(recipe => {
-          this.recipe = recipe[0]
+          this.recipe = recipe
         })
     },
     components: {

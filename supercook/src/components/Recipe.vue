@@ -10,14 +10,14 @@
       </div>
       <div class="story">
         <p class="description">{{ data.histoire }}</p>
-        <start class="favorite" @onChange="onFavorite" :favorite="data.favorite" ></start>
+        <star class="favorite" @onChange="onFavorite" :favorite="data.favorite"></star>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-  import Start from './Start.vue'
+  import Star from './Star.vue'
   import recipesService from '../services/recipes-services'
 
   export default {
@@ -32,7 +32,7 @@
         this.$emit('onFavorite')
       }
     },
-    components: {Start},
+    components: {Star},
     name: 'recipe',
     props: ['data']
   }
@@ -50,14 +50,18 @@
       display: flex;
 
       .info {
-        width: 160px;
         text-align: center;
+        margin-right: 10px;
+        img {
+          width: 160px;
+        }
       }
 
       .story {
         flex: 1;
         display: flex;
         flex-direction: column;
+        text-align: justify;
 
         .description {
           flex: 1;

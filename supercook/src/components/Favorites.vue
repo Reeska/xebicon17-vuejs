@@ -26,7 +26,10 @@
     },
     methods: {
       loadFavorites () {
-        this.favorites = recipesService.findFavorites()
+        recipesService.findFavorites()
+          .then(favorites => {
+            this.favorites = favorites
+          });
       }
     },
     components: {Recipe}

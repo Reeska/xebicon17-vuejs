@@ -12,7 +12,6 @@
 </template>
 <script>
   export default {
-    name: 'start',
     props: {
       'favorite': Boolean,
       'disabled': Boolean,

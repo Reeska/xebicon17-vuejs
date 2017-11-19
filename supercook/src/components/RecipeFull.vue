@@ -2,12 +2,12 @@
   <div class="recipe-full" v-if="recipe">
     <h2>Recette</h2>
 
-    <Recipe :data="recipe"></Recipe>
+    <recipe :data="recipe"></recipe>
     <div>
       <h4>Ingrédients</h4>
 
       <ul>
-        <li v-for="ingredient in recipe.ingredients">{{ ingredient }}</li>
+        <li v-for="ingredient in recipe.ingredients">{{ ingredient.label }}</li>
       </ul>
     </div>
   </div>
@@ -18,7 +18,6 @@
   import recipesService from '../services/recipes-services'
 
   export default {
-    name: 'recipe',
     props: ['uid'],
     data () {
       return {
@@ -26,6 +25,7 @@
       }
     },
     created () {
+      console.log('load recipes', this.uid);
       recipesService.getRecipe(this.uid)
         .then(recipe => {
           this.recipe = recipe

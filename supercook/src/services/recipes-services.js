@@ -15,7 +15,8 @@ function applyFavorite (recipe) {
 }
 
 function findFavorites () {
-  return favorites
+  return getRecipes()
+    .then(recipes => recipes.filter(recipe => recipe.favorite));
 }
 
 function addFavorite (recipe) {
@@ -24,7 +25,7 @@ function addFavorite (recipe) {
 }
 
 function removeFavorite (recipe) {
-  const newFavorites = favorites.filter(f => f.uid !== recipe.uid)
+  const newFavorites = favorites.filter(favorite => favorite !== recipe.uid)
   window.localStorage.setItem('favorites', JSON.stringify(newFavorites))
   favorites = JSON.parse(window.localStorage.getItem('favorites'))
 }
@@ -55,6 +56,8 @@ function getRecipe (uid) {
 function addRecipe (recipe) {
   recipe.uid = uid()
   localRecipes.push(recipe)
+
+  return new Promise(resolve => resolve());
 }
 
 function uid () {

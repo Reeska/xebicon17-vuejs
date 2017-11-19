@@ -6,7 +6,7 @@
 
     <form>
       <fieldset>
-        Type :
+        <label>Type</label>
         <select v-model="recipe.type">
           <option selected="selected" value="">-</option>
           <option v-for="type in types" :value="type">{{ type }}</option>
@@ -14,28 +14,30 @@
       </fieldset>
 
       <fieldset>
-        Nom : <input type="text" v-model="recipe.nom"/>
+        <label>Nom</label> <input type="text" v-model="recipe.nom"/>
       </fieldset>
 
       <fieldset>
-        Durée : <input type="number" v-model.number="recipe.cuisson"/> minutes
+        <label>Durée</label> <input type="number" v-model.number="recipe.cuisson"/> minutes
       </fieldset>
 
       <fieldset>
-        Image : <input type="text" v-model="recipe.img_small"/>
+        <label>Image</label> <input type="text" v-model="recipe.img_small"/>
       </fieldset>
 
       <fieldset>
-        Description : <textarea v-model="recipe.histoire"></textarea>
+        <label>Description</label> <textarea v-model="recipe.histoire"></textarea>
       </fieldset>
 
       <div>
         <h3>Liste des ingrédients</h3>
         <ul>
           <li v-for="ingredient in recipe.ingredients">
-            <input v-model="ingredient.name" />
+            <input v-model="ingredient.label" />
           </li>
-          <li @click="addIngredient()">Ajouter un ingrédient</li>
+          <li>
+            <button type="button" @click="addIngredient()">Ajouter un ingrédient</button>
+          </li>
         </ul>
       </div>
 
@@ -43,6 +45,8 @@
         <button type="button" @click="save()">
           Enregistrer
         </button>
+
+        <span v-if="success" class="success">Recette ajoutée avec succès</span>
       </div>
     </form>
   </div>
@@ -64,21 +68,42 @@
         recipe: {
           type: '',
           nom: '',
+          histoire: '',
           cuisson: 0,
           img_small: '',
           ingredients: []
-        }
+        },
+        success: false
       }
     },
     methods: {
       addIngredient () {
         this.recipe.ingredients.push({
-          name: ''
+          label: ''
         })
       },
       save () {
-        recipesServices.addRecipe(this.recipe);
+        recipesServices.addRecipe(this.recipe)
+          .then(() => {
+            this.success = true;
+            this.recipe = {
+              type: '',
+              nom: '',
+              histoire: '',
+              cuisson: 0,
+              img_small: '',
+              ingredients: []
+            };
+
+            setTimeout(() => this.success = false, 2000);
+          })
       }
     }
   }
 </script>
+
+<style>
+  .success {
+    color: mediumseagreen;
+  }
+</style>

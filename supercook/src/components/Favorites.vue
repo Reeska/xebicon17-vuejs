@@ -10,30 +10,30 @@
 </template>
 
 <script>
-  import recipesService from '../services/recipes-services'
-  import Recipe from './Recipe.vue'
+  import recipesService from '../services/recipes-services';
+  import Recipe from './Recipe.vue';
 
   export default {
     name: 'hello',
-    data () {
+    data() {
       return {
         favorites: [],
-        msg: 'Welcome to Your Vue.js App'
-      }
+        msg: 'Welcome to Your Vue.js App',
+      };
     },
-    created () {
-      this.loadFavorites()
+    created() {
+      this.loadFavorites();
     },
     methods: {
-      loadFavorites () {
+      loadFavorites() {
         recipesService.findFavorites()
           .then(favorites => {
-            this.favorites = favorites
+            this.favorites = favorites;
           });
-      }
+      },
     },
-    components: {Recipe}
-  }
+    components: { Recipe },
+  };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

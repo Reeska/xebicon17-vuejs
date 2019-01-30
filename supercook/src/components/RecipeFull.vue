@@ -14,27 +14,27 @@
 </template>
 
 <script>
-  import Recipe from './Recipe.vue'
-  import recipesService from '../services/recipes-services'
+  import Recipe from './Recipe.vue';
+  import recipesService from '../services/recipes-services';
 
   export default {
     props: ['uid'],
-    data () {
+    data() {
       return {
-        recipe: {}
-      }
+        recipe: {},
+      };
     },
-    created () {
+    created() {
       console.log('load recipes', this.uid);
       recipesService.getRecipe(this.uid)
         .then(recipe => {
-          this.recipe = recipe
-        })
+          this.recipe = recipe;
+        });
     },
     components: {
-      Recipe
-    }
-  }
+      Recipe,
+    },
+  };
 </script>
 
 <style scoped lang="scss">

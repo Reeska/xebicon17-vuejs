@@ -30,10 +30,10 @@
   </div>
 </template>
 
-<script>
-  export default {
-    name: 'app'
-  }
+<script lang="ts">
+export default {
+  name: 'app',
+};
 </script>
 
 <style lang="scss">

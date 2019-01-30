@@ -17,25 +17,27 @@
 </template>
 
 <script>
-  import Star from './Star.vue'
-  import recipesService from '../services/recipes-services'
+  import Star from './Star.vue';
+  import recipesService from '../services/recipes-services';
 
   export default {
     methods: {
-      onFavorite (favorite) {
-        this.data.favorite = favorite
+      onFavorite(favorite) {
+        this.data.favorite = favorite;
+
         if (favorite) {
-          recipesService.addFavorite(this.data)
+          recipesService.addFavorite(this.data);
         } else {
-          recipesService.removeFavorite(this.data)
+          recipesService.removeFavorite(this.data);
         }
-        this.$emit('onFavorite')
-      }
+
+        this.$emit('onFavorite');
+      },
     },
-    components: {Star},
+    components: { Star },
     name: 'recipe',
-    props: ['data']
-  }
+    props: ['data'],
+  };
 </script>
 
 <style scoped lang="scss">
@@ -52,6 +54,7 @@
       .info {
         text-align: center;
         margin-right: 10px;
+
         img {
           width: 160px;
         }

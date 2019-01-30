@@ -13,39 +13,22 @@
 <script>
   export default {
     props: {
-      'favorite': Boolean,
-      'disabled': Boolean,
-      'required': Boolean
+      favorite: Boolean,
+      disabled: Boolean,
+      required: Boolean,
     },
-    data () {
+    data() {
       return {
-        isSelected: this.favorite
-      }
+        isSelected: this.favorite,
+      };
     },
     methods: {
-      startChange () {
-        this.$emit('onChange', this.isSelected)
+      startChange() {
+        this.$emit('onChange', this.isSelected);
       },
-      /*
-       * Behaviour of the stars on mouseover.
-       */
-      star_over (index) {
-      },
-
-      /*
-       * Behaviour of the stars on mouseout.
-       */
-      star_out () {
-      },
-
-      /*
-       * Set the rating of the score
-       */
-      set (value) {
-      }
     },
-    components: {}
-  }
+    components: {},
+  };
 </script>
 <style lang="scss" scoped>
   /* style star ratting component */
@@ -59,6 +42,7 @@
     padding: 0;
     border: 0;
   }
+
   .star-rating__star {
     display: inline-block;
     padding: 3px;
@@ -68,13 +52,16 @@
     color: #ABABAB;
     transition: color .2s ease-out;
   }
+
   .star-rating__star:hover {
     cursor: pointer;
   }
+
   .star-rating__star.is-selected,
   .star-rating__star.is-hover {
     color: #FFD700;
   }
+
   .star-rating__star.is-disabled:hover {
     cursor: pointer;
   }

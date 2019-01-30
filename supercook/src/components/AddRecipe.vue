@@ -33,7 +33,7 @@
         <h3>Liste des ingrédients</h3>
         <ul>
           <li v-for="ingredient in recipe.ingredients">
-            <input v-model="ingredient.label" />
+            <input v-model="ingredient.label"/>
           </li>
           <li>
             <button type="button" @click="addIngredient()">Ajouter un ingrédient</button>
@@ -53,17 +53,17 @@
 </template>
 
 <script>
-  import recipesServices from '../services/recipes-services'
+  import recipesServices from '../services/recipes-services';
 
   export default {
     name: 'addRecipe',
-    data () {
+    data() {
       return {
         types: [
           'Dessert',
           'Plat',
           'Entrée',
-          'Boisson'
+          'Boisson',
         ],
         recipe: {
           type: '',
@@ -71,18 +71,18 @@
           histoire: '',
           cuisson: 0,
           img_small: '',
-          ingredients: []
+          ingredients: [],
         },
-        success: false
-      }
+        success: false,
+      };
     },
     methods: {
-      addIngredient () {
+      addIngredient() {
         this.recipe.ingredients.push({
-          label: ''
-        })
+          label: '',
+        });
       },
-      save () {
+      save() {
         recipesServices.addRecipe(this.recipe)
           .then(() => {
             this.success = true;
@@ -92,14 +92,14 @@
               histoire: '',
               cuisson: 0,
               img_small: '',
-              ingredients: []
+              ingredients: [],
             };
 
             setTimeout(() => this.success = false, 2000);
-          })
-      }
-    }
-  }
+          });
+      },
+    },
+  };
 </script>
 
 <style>

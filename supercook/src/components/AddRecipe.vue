@@ -52,58 +52,45 @@
   </div>
 </template>
 
-<script>
-  import recipesServices from '../services/recipes-services';
+<script setup>
+import recipesServices from '@/services/recipes-services';
+import { ref } from 'vue';
 
-  export default {
-    name: 'addRecipe',
-    data() {
-      return {
-        types: [
-          'Dessert',
-          'Plat',
-          'Entrée',
-          'Boisson',
-        ],
-        recipe: {
-          type: '',
-          nom: '',
-          histoire: '',
-          cuisson: 0,
-          img_small: '',
-          ingredients: [],
-        },
-        success: false,
-      };
-    },
-    methods: {
-      addIngredient() {
-        this.recipe.ingredients.push({
-          label: '',
-        });
-      },
-      save() {
-        recipesServices.addRecipe(this.recipe)
-          .then(() => {
-            this.success = true;
-            this.recipe = {
-              type: '',
-              nom: '',
-              histoire: '',
-              cuisson: 0,
-              img_small: '',
-              ingredients: [],
-            };
+const types = [
+  'Dessert',
+  'Plat',
+  'Entrée',
+  'Boisson',
+];
+const emptyRecipe = {
+  type: '',
+  nom: '',
+  histoire: '',
+  cuisson: 0,
+  img_small: '',
+  ingredients: [],
+};
 
-            setTimeout(() => this.success = false, 2000);
-          });
-      },
-    },
-  };
+const recipe = ref(emptyRecipe);
+const success = ref(false);
+
+const addIngredient = () => {
+  recipe.value.ingredients.push({
+    label: '',
+  });
+}
+
+const save = async () => {
+  recipesServices.addRecipe(recipe.value)
+  success.value = true
+  recipe.value = emptyRecipe
+
+  setTimeout(() => success.value = false, 2000)
+}
 </script>
 
 <style>
-  .success {
-    color: mediumseagreen;
-  }
+.success {
+  color: mediumseagreen;
+}
 </style>

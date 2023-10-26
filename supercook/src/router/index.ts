@@ -1,13 +1,11 @@
-import Vue from 'vue';
-import Router from 'vue-router';
+import { createRouter, createWebHistory } from 'vue-router';
 import Recipes from '../components/Recipes.vue';
 import RecipeFull from '../components/RecipeFull.vue';
 import Favorites from '../components/Favorites.vue';
 import AddRecipe from '../components/AddRecipe.vue';
 
-Vue.use(Router);
-
-export default new Router({
+export default createRouter({
+  history: createWebHistory(),
   routes: [
     {
       path: '/recipes',

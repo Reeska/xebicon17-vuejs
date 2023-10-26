@@ -10,71 +10,77 @@
       </div>
       <div class="story">
         <p class="description">{{ data.histoire }}</p>
-        <star class="favorite" @onChange="onFavorite" :favorite="data.favorite"></star>
+        <Star class="favorite" @onChange="onFavorite" :favorite="isFavorite" />
       </div>
     </div>
   </div>
 </template>
 
-<script>
-  import Star from './Star.vue';
-  import recipesService from '../services/recipes-services';
+<script setup>
+import { ref } from 'vue';
+import recipesService from '../services/recipes-services';
+import Star from './Star.vue';
 
-  export default {
-    methods: {
-      onFavorite(favorite) {
-        this.data.favorite = favorite;
+const { data } = defineProps({ data: Object });
 
-        if (favorite) {
-          recipesService.addFavorite(this.data);
-        } else {
-          recipesService.removeFavorite(this.data);
-        }
+const emit = defineEmits(['onFavorite']);
 
-        this.$emit('onFavorite');
-      },
-    },
-    components: { Star },
-    name: 'recipe',
-    props: ['data'],
-  };
+const isFavorite = ref(false)
+
+const onFavorite = async (favorite) => {
+  console.log('onFavorite', favorite);
+  if (favorite) {
+    recipesService.addFavorite(data);
+  } else {
+    recipesService.removeFavorite(data);
+  }
+
+  loadFavorite()
+  emit('onFavorite');
+};
+
+const loadFavorite = () => {
+  isFavorite.value = recipesService.getFavorites().includes(data.uid)
+}
+
+loadFavorite()
 </script>
 
 <style scoped lang="scss">
-  .recipe {
-    background: #eee;
-    padding: 10px;
-    border-radius: 10px;
-    margin-bottom: 20px;
-    box-shadow: 0 8px 13px 0 #aeadad;
+.recipe {
+  background: #eee;
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  box-shadow: 0 8px 13px 0 #aeadad;
 
-    .details {
+  .details {
+    display: flex;
+
+    .info {
+      text-align: center;
+      margin-right: 10px;
+
+      img {
+        width: 160px;
+      }
+    }
+
+    .story {
+      flex: 1;
       display: flex;
+      flex-direction: column;
+      text-align: justify;
 
-      .info {
-        text-align: center;
-        margin-right: 10px;
-
-        img {
-          width: 160px;
-        }
+      .description {
+        flex: 1;
+        margin: 0;
       }
 
-      .story {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        text-align: justify;
-
-        .description {
-          flex: 1;
-          margin: 0;
-        }
-
-        .favorite {
-          align-self: flex-end;
-        }
+      .favorite {
+        align-self: flex-end;
       }
     }
   }
+}
 </style>

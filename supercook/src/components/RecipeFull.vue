@@ -1,8 +1,9 @@
 <template>
-  <div class="recipe-full" v-if="recipe">
+  <span v-if="error">Erreur lors du chargement de la recette</span>
+  <div class="recipe-full" v-else-if="recipe">
     <h2>Recette</h2>
 
-    <recipe :data="recipe"></recipe>
+    <Recipe :data="recipe" />
     <div>
       <h4>Ingrédients</h4>
 
@@ -11,34 +12,24 @@
       </ul>
     </div>
   </div>
+  <span v-else>Chargement...</span>
 </template>
 
-<script>
-  import Recipe from './Recipe.vue';
-  import recipesService from '../services/recipes-services';
+<script setup>
+import { ref, watchEffect } from 'vue';
+import Recipe from './Recipe.vue';
+import recipesService from '../services/recipes-services';
 
-  export default {
-    props: ['uid'],
-    data() {
-      return {
-        recipe: {},
-      };
-    },
-    created() {
-      console.log('load recipes', this.uid);
-      recipesService.getRecipe(this.uid)
-        .then(recipe => {
-          this.recipe = recipe;
-        });
-    },
-    components: {
-      Recipe,
-    },
-  };
-</script>
+const { uid } = defineProps({ uid: String });
+const recipe = ref(null)
+const error = ref(false)
 
-<style scoped lang="scss">
-  .recipe-full {
-
+watchEffect(async () => {
+  error.value = false
+  try {
+    recipe.value = await recipesService.getRecipe(uid)
+  } catch {
+    error.value = true
   }
-</style>
+})
+</script>

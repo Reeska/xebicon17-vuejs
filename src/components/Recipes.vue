@@ -14,7 +14,7 @@
 import { useFetch } from '@/hooks/useFetch';
 import { computed } from 'vue';
 import recipesService from '../services/recipes-services';
-import Recipe from './Recipe.vue';
+import Recipe from './Recipe/Recipe.vue';
 
 const { data: recipes, error } = useFetch(recipesService.getRecipes)
 

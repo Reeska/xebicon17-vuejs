@@ -1,11 +1,11 @@
 <template>
   <div class="recipe">
     <h3>
-      <router-link :to="{ 'name': 'recipe', params: { uid : data.uid }}">{{ data.nom }}</router-link>
+      <router-link :to="`/recipes/${data.uid}`">{{ data.nom }}</router-link>
     </h3>
     <div class="details">
       <div class="info">
-        <img :src="data.img_small" :alt="data.nom"/>
+        <img :src="data.img_small" :alt="data.nom" />
         <div>Durée : {{ data.cuisson }} minutes</div>
       </div>
       <div class="story">
@@ -16,27 +16,28 @@
   </div>
 </template>
 
-<script setup>
-import { ref } from 'vue';
-import recipesService from '../services/recipes-services';
-import Star from './Star.vue';
+<script setup lang="ts">
+import { ref } from 'vue'
+import recipesService from '@/services/recipes-services'
+import Star from '@/components/Star.vue'
+import type { Recipe } from '@/types'
 
-const { data } = defineProps({ data: Object });
+const { data } = defineProps<{ data: Recipe }>()
 
-const emit = defineEmits(['onFavorite']);
+const emit = defineEmits(['onFavorite'])
 
 const isFavorite = ref(false)
 
 const onFavorite = async (favorite) => {
   if (favorite) {
-    recipesService.addFavorite(data);
+    recipesService.addFavorite(data)
   } else {
-    recipesService.removeFavorite(data);
+    recipesService.removeFavorite(data)
   }
 
   fetchFavoriteFlag()
-  emit('onFavorite');
-};
+  emit('onFavorite')
+}
 
 const fetchFavoriteFlag = () => {
   isFavorite.value = recipesService.getFavorites().includes(data.uid)

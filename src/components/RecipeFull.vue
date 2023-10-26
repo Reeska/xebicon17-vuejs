@@ -18,7 +18,7 @@
 <script setup>
 import { useFetch } from '@/hooks/useFetch';
 import recipesService from '../services/recipes-services';
-import Recipe from './Recipe.vue';
+import Recipe from './Recipe/Recipe.vue';
 
 const props = defineProps({ uid: String });
 

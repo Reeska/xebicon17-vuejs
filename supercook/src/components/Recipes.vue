@@ -11,27 +11,16 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue';
-import Recipe from './Recipe.vue';
+import { useFetch } from '@/hooks/useFetch';
+import { computed } from 'vue';
 import recipesService from '../services/recipes-services';
+import Recipe from './Recipe.vue';
 
-const recipes = ref(null)
-const error = ref(false)
-
-const loadRecipes = async () => {
-  error.value = false
-  try {
-    recipes.value = await recipesService.getRecipes()
-  } catch {
-    error.value = true
-  }
-}
+const { data: recipes, error } = useFetch(recipesService.getRecipes)
 
 const countFavorites = computed(() => {
   return recipes.value?.filter(recipe => recipe.favorite).length ?? 0
 })
-
-loadRecipes()
 </script>
 
 <style scoped>

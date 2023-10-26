@@ -5,7 +5,7 @@
     </h3>
     <div class="details">
       <div class="info">
-        <img :src="data.img_small"/>
+        <img :src="data.img_small" :alt="data.nom"/>
         <div>Durée : {{ data.cuisson }} minutes</div>
       </div>
       <div class="story">
@@ -28,22 +28,21 @@ const emit = defineEmits(['onFavorite']);
 const isFavorite = ref(false)
 
 const onFavorite = async (favorite) => {
-  console.log('onFavorite', favorite);
   if (favorite) {
     recipesService.addFavorite(data);
   } else {
     recipesService.removeFavorite(data);
   }
 
-  loadFavorite()
+  fetchFavoriteFlag()
   emit('onFavorite');
 };
 
-const loadFavorite = () => {
+const fetchFavoriteFlag = () => {
   isFavorite.value = recipesService.getFavorites().includes(data.uid)
 }
 
-loadFavorite()
+fetchFavoriteFlag()
 </script>
 
 <style scoped lang="scss">

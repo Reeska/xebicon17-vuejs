@@ -12,23 +12,11 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { useFetch } from '@/hooks/useFetch';
 import recipesService from '../services/recipes-services';
 import Recipe from './Recipe.vue';
 
-const favorites = ref(null)
-const error = ref(false)
-
-const loadFavorites = async () => {
-  error.value = false
-  try {
-    favorites.value = await recipesService.findFavorites()
-  } catch {
-    error.value = true
-  }
-}
-
-loadFavorites()
+const { data: favorites, error } = useFetch(recipesService.findFavorites)
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

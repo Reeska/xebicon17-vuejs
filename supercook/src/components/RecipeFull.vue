@@ -16,20 +16,11 @@
 </template>
 
 <script setup>
-import { ref, watchEffect } from 'vue';
-import Recipe from './Recipe.vue';
+import { useFetch } from '@/hooks/useFetch';
 import recipesService from '../services/recipes-services';
+import Recipe from './Recipe.vue';
 
-const { uid } = defineProps({ uid: String });
-const recipe = ref(null)
-const error = ref(false)
+const props = defineProps({ uid: String });
 
-watchEffect(async () => {
-  error.value = false
-  try {
-    recipe.value = await recipesService.getRecipe(uid)
-  } catch {
-    error.value = true
-  }
-})
+const { data: recipe, error } = useFetch(() => recipesService.getRecipe(props.uid))
 </script>

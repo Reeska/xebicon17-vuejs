@@ -69,5 +69,4 @@ it('should add current recipe to favorite when user clicks star button', async (
   // THEN
   expect(screen.getByRole('checkbox')).toBeChecked()
   expect(recipeService.getFavorites()).toContainEqual(recipe.uid)
-  expect(window.localStorage.getItem('favorites')).toBe('["134EDFRET57UHGHU8ZETF"]')
 })

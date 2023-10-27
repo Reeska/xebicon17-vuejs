@@ -35,8 +35,9 @@ describe('addFavorite', () => {
     recipeService.addFavorite(recipe2);
 
     // THEN
-    expect(recipeService.getFavorites()).toContainEqual(recipe1.uid);
-    expect(recipeService.getFavorites()).toContainEqual(recipe2.uid);
+    const favorites = recipeService.getFavorites()
+    expect(favorites).toContainEqual(recipe1.uid);
+    expect(favorites).toContainEqual(recipe2.uid);
     expect(window.localStorage.getItem('favorites')).toBe('[1,2]');
   });
 });

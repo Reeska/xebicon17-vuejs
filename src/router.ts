@@ -1,8 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import Recipes from '../components/Recipes.vue';
-import RecipeFull from '../components/RecipeFull.vue';
-import Favorites from '../components/Favorites.vue';
-import AddRecipe from '../components/AddRecipe.vue';
+import Recipes from './pages/Recipes.vue';
+import RecipeFull from './pages/RecipeFull.vue';
+import Favorites from './pages/Favorites.vue';
+import AddRecipe from './pages/AddRecipe.vue';
 
 export default createRouter({
   history: createWebHistory(),

@@ -3,7 +3,7 @@
   <div class="recipe-full" v-else-if="recipe">
     <h2>Recette</h2>
 
-    <Recipe :data="recipe" />
+    <RecipeCard :data="recipe" />
     <div>
       <h4>Ingrédients</h4>
 
@@ -18,7 +18,7 @@
 <script setup>
 import { useFetch } from '@/hooks/useFetch';
 import recipesService from '../services/recipes-services';
-import Recipe from './Recipe/Recipe.vue';
+import RecipeCard from '@/components/RecipeCard/RecipeCard.vue';
 
 const props = defineProps({ uid: String });
 

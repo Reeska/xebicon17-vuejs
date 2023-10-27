@@ -1,7 +1,7 @@
 import { ref, watchEffect } from 'vue';
 
-export const useFetch = (getFunction: () => Promise<any>) => {
-  const data = ref(null);
+export const useFetch = <DataT>(getFunction: () => Promise<DataT>) => {
+  const data = ref<null | DataT>(null);
   const error = ref(false);
 
   watchEffect(async () => {

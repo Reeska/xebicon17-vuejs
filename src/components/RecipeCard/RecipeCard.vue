@@ -22,17 +22,16 @@ import recipesService from '@/services/recipes-services'
 import Star from '@/components/Star.vue'
 import type { Recipe } from '@/types'
 
-const { data } = defineProps<{ data: Recipe }>()
-
+const props = defineProps<{ data: Recipe }>()
 const emit = defineEmits(['onFavorite'])
 
 const isFavorite = ref(false)
 
 const onFavorite = async (favorite) => {
   if (favorite) {
-    recipesService.addFavorite(data)
+    recipesService.addFavorite(props.data)
   } else {
-    recipesService.removeFavorite(data)
+    recipesService.removeFavorite(props.data)
   }
 
   fetchFavoriteFlag()
@@ -40,7 +39,7 @@ const onFavorite = async (favorite) => {
 }
 
 const fetchFavoriteFlag = () => {
-  isFavorite.value = recipesService.getFavorites().includes(data.uid)
+  isFavorite.value = recipesService.getFavorites().includes(props.data.uid)
 }
 
 fetchFavoriteFlag()

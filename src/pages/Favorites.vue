@@ -14,7 +14,7 @@
 <script setup>
 import { useFetch } from '@/hooks/useFetch';
 import recipesService from '../services/recipes-services';
-import Recipe from './Recipe/Recipe.vue';
+import Recipe from '@/components/RecipeCard/RecipeCard.vue';
 
 const { data: favorites, error } = useFetch(recipesService.findFavorites)
 </script>

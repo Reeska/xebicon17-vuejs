@@ -1,6 +1,6 @@
 import { expect, it } from 'vitest'
 import { render, screen } from '@testing-library/vue'
-import Recipe from '@/components/Recipe/Recipe.vue'
+import RecipeCard from '@/components/RecipeCard/RecipeCard.vue'
 import userEvent from '@testing-library/user-event'
 import recipeService from '@/services/recipes-services'
 
@@ -31,7 +31,7 @@ const recipe = {
 
 it('should display recipe card', () => {
   // GIVEN
-  render(Recipe, {
+  render(RecipeCard, {
     props: {
       data: recipe
     },
@@ -54,7 +54,7 @@ it('should display recipe card', () => {
 
 it('should add current recipe to favorite when user clicks star button', async () => {
   // GIVEN
-  render(Recipe, {
+  render(RecipeCard, {
     props: {
       data: recipe
     },
